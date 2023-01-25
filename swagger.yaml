@@ -1,0 +1,54 @@
+openapi: "3.0.0"
+info:
+  title: learning swagger
+  description: learning to write DOcs
+  version: 1.1.0
+  contact:
+    email: jatinchourasia3@gmail.com
+    url: "http://jatinchourasia.me/portfolio"
+
+# servers:
+#   - url: "https://localhost:4000/api/v1"
+#     description: for local host -secure
+#   - url: "http://localhost:4000/api/v1"
+#     description: for local host -regular
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: for local host -secure
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+      protocol:
+        enum:
+          - http
+          - https
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /lco:
+    get:
+      summary: return greetings
+      responses:
+        200:
+          description: Sucesss
+          content:
+            application/json:
+              schema:
+                type: string\
+                example: "mystring"
+        400:
+          description: Bad request
+        500:
+          description: internal server error
